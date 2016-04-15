@@ -1,0 +1,23 @@
+//
+// Created by mareal on 3/16/16.
+//
+
+#ifndef SERVER_SERVER_H
+#define SERVER_SERVER_H
+#include <QUdpSocket>
+
+class QTimer;
+class QHostAddress;
+class Server : public QUdpSocket {
+    Q_OBJECT
+public:
+    explicit Server(QWidget *parent = 0);
+public slots:
+    void sendData();
+private:
+    QTimer *timer;
+    int messageNo;
+    QHostAddress *hostAddress;
+    quint16 port;
+};
+#endif //SERVER_SERVER_H

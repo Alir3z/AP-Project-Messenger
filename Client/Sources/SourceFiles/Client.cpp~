@@ -1,0 +1,22 @@
+//
+// Created by mareal on 3/17/16.
+//
+
+#include <Sources/HeaderFiles/Client.h>
+#include <QWidget>
+#include <iostream>
+using namespace std;
+Client::Client(QWidget *parent) : QUdpSocket(parent) {
+    hostAddress = new QHostAddress("127.0.0.1");
+    port = 4444;
+    //bind(*hostAddress, port);
+    joinMulticastGroup(*hostAddress);
+    connect(this, SIGNAL(readyRead()), this, SLOT(receiveData()));
+
+}
+
+void Client::receiveData() {
+    char *data = new char[1000];
+    readDatagram(data, 1000, hostAddress, &port);
+    cout << data << endl;
+}
